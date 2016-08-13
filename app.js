@@ -8,22 +8,47 @@ App.random = function(_limit){
 App.create_ellipse = function(){
 	var _w = App.random(100);
 	var _h = App.random(100);
-	var draw = SVG('drawing').size(500, 500);
-	return draw.ellipse(_w, _h).attr({ fill: '#333' }).stroke({ color: '#f06', opacity: 0.6, width: 5 }).x(50).y(50)
+	
+	return draw.ellipse(_w, _h).attr({ fill: '#333' }).stroke({ color: '#f06', opacity: 0.6, width: 5 }).x(App.random(400)).y(App.random(700))
 }
+
+App.dance = function(){
+	for (var i = 0; i < App.rect.length ; i++) {
+		App.rect[i].animate(App.random(1000), 'elastic').move(App.random(400), App.random(800));
+		console.log("I"+i);
+	}
+}
+
+App.loop_daance = function(){
+	App.timer = setInterval(function () {
+			App.dance();
+	}, 1000)
+}
+
+App.timer = null
 
 
 jQuery(document).ready(function($) {
-	for (var i = 1 ; i >= 0; i--) {
+	draw = SVG('drawing').size('100%', '100%');
+	for (var i = 50 ; i >= 0; i--) {
 		App.rect.push( App.create_ellipse() );
 	}
 
 	jQuery(document).ready(function($) {
-		$(document).on('click', 'body', function(event) {
+		$(document)
+		.on('click', 'body', function(event) {
 			event.preventDefault();
-			/* Act on the event */
-			App.rect[0].animate().move(10, 500);
+			if(App.timer == null){
+				App.loop_daance();
+			}else{
+				clearInterval(App.timer);
+				App.timer = null;
+			}
 		});
+
+		
+
+
 	});
 	
 });
