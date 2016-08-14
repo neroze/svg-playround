@@ -8,7 +8,7 @@ App.random = function(_limit){
 App.create_ellipse = function(){
 	var _w = App.random(100);
 	var _h = App.random(100);
-	var draw = SVG('drawing').size(500, 500).x(App.random());
+	var draw = SVG('drawing').size('100%', '100%');
 }
 
 
