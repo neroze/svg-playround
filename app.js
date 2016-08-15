@@ -14,5 +14,4 @@ App.create_ellipse = function(){
 
 jQuery(document).ready(function($) {
 	
-	
 });

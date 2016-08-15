@@ -1,0 +1,14 @@
+body, html{
+			height: 100%;
+			width: 1000%;
+			background-color: #DDD;
+		}
+
+		#drawing{
+			height: 100%;
+			width: 100%;
+			display: block;
+		}
+		#drawing svg{
+			position: absolute;
+		}
