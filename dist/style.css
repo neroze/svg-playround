@@ -1,13 +1,13 @@
 body, html{
-			height: 100%;
-			width: 1000%;
+			height: 400;
+			width: 400;
 			background-color: #DDD;
 		}
 
 		#drawing{
 			height: 100%;
 			width: 100%;
-			display: block;
+			
 		}
 		#drawing svg{
 			position: absolute;
