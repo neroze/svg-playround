@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "dependencies": {},
+  "dependencies": {
+    "gulp-install": "^0.6.0",
+    "selfupdate": "^1.1.0"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-install": "^0.6.0",
     "gulp-livereload": "^3.8.1",
     "gulp-watch": "^4.3.9"
   },
