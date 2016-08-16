@@ -6,89 +6,77 @@ App.random = function(_limit) {
 	return Math.floor((Math.random() * limit) + 1);
 }
 
-
-App.draw_sun = function() {
-	
-	return draw
-		.ellipse(200, 200)
+App.draw_random_dots = function() {
+	var _w = App.random(100);
+	var _h = App.random(100);
+	return draw.ellipse(10,10)
 		.attr({
-			fill: 'blue',
-			'fill-opacity': 0.5,
-			stroke: '#FFF',
-			'stroke-width': 10
-		});
+			fill: '#333'
+		})
+		.stroke({
+			color: '#f06',
+			opacity: 0.6,
+			width: 5
+		})
+		.x(App.random(800)).y(App.random(700));
+
+	 
 }
 
-App.draw_mountains = function(){
-	var mt1 = draw.path('M 5 500, L 170, 200, L 500 480, L 250 600')
-		.fill('#333').stroke({
-			width: 1,
-			color: '#333'
-		});
 
-	var mt2 = draw.path('M 5 500, L 170, 200, L 250 600')
-		.fill('#3dd').stroke({
-			width: 1,
-			color: '#333'
-		});
-
-	var Mtgroup = draw.group();
-	Mtgroup.add(mt1);
-	Mtgroup.add(mt2);
-
-	return Mtgroup;
-
+App.draw_lines_to_dots = function(){
+	$.each(App.dots, function(index, el) {
+			App.draw_from_dot(el)
+	});
 }
+
+App.draw_from_dot = function(el){
+	console.log(el.x() );
+			var _fromX = el.x();
+			var _fromY = el.y();
+			var _timeout = 500;
+			$.each(App.dots, function(index, _el){
+				
+				 (function(_time) {
+          setTimeout(function() {
+              var line = draw.line(_fromX, _fromY, _el.x(), _el.y()).stroke({ width: 1 });
+          }, _time);
+          _timeout += 500;
+
+      }(_timeout));
+			});
+}
+
 
 App.init = function() {
+	var dfd = jQuery.Deferred();
+
 	var _w = App.random(100);
 	var _h = App.random(100);
 	draw = SVG('drawing').size('100%', '100%');
-
-	var sun = App.draw_sun();
-	sun.x(50).y(50);
-	sun.animate(20000).x(800);
-
+	App.dots = [];
 	
-	var mountain3 = App.draw_mountains();
-	mountain3.x(350).y(-120).scale('0.25');
-	mountain3.animate(20000).x(800);
-
-	var mountain2 = App.draw_mountains();
-	mountain2.x(200).y(-100).scale('0.5');
-	mountain2.animate(20000).x(800);
-
-	var mountain = App.draw_mountains();
-	mountain.animate(20000).x(900);
-
-	
-
-	group = draw.group();
-	group.add(ellipse);
-	group.add(trangle);
-	group.x(150).y(50);
-
-	var click = function() {
-		this.animate().move(100, 90).fill({
-			color: '#f06',
-			opacity: "0.5"
-		}).loop();
+	for (var i = 10 ; i >= 0; i--) {
+		App.dots.push(App.draw_random_dots());
 	}
-
-	var clickE = function() {
-		this.animate({
-			speed: 4000,
-			reverse: true
-		}).scale(2);
-	}
-
-	trangle.on('click', click);
-
-	ellipse.on('click', clickE)
-
+	dfd.resolve( "hurray" );
+ 	return dfd.promise();
 }
 
 
 jQuery(document).ready(function($) {
-	App.init();
+	var s = App.init();
+
+	s.done(function(){
+		App.draw_lines_to_dots();
+	});
+
+	$(document)
+	.on('click', '#drawing svg ellipse', function(event) {
+			event.preventDefault();
+			//this.instance.x(App.random(500));
+			console.log(this.instance);
+			App.draw_from_dot(this.instance);
+	});
+	
 });
