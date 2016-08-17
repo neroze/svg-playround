@@ -52,11 +52,11 @@ App.init = function() {
 
 	var mountain = App.draw_mountains();
 	//mountain.animate(20000).x(900);
-
-
 }
 
 
 jQuery(document).ready(function($) {
-	App.init();
+	//App.init();
+	draw = SVG('drawing').size('100%', '100%');
+	var use  = draw.get('test', 'camp.svg')
 });
