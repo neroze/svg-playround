@@ -37,13 +37,13 @@ App.draw_from_dot = function(el){
 			var _timeout = 500;
 			$.each(App.dots, function(index, _el){
 				
-				 (function(_time) {
+				(function(_time) {
           setTimeout(function() {
               var line = draw.line(_fromX, _fromY, _el.x(), _el.y()).stroke({ width: 1 });
           }, _time);
           _timeout += 500;
 
-      }(_timeout));
+      	}(_timeout));
 			});
 }
 
