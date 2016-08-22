@@ -1,5 +1,6 @@
 var App = {};
 var Obj = {};
+var Art = {};
 var draw;
 App.random = function(_limit) {
 	var limit = _limit || 50;
@@ -19,44 +20,54 @@ App.draw_sun = function() {
 		});
 }
 
-App.draw_mountains = function(){
-	var mt1 = draw.path('M 5 500, L 100 400, L 200 450, L 210 440, L 110 390, L 130 370, L 225 425, L 235 410, L 145 360, L 165 340, L 260 390, L 275 370')
-		.fill('none').stroke({
-			width: 1,
-			color: '#333'
-		});
-
-	// var mt2 = draw.path('M 5 500, L 170, 200, L 250 600')
-	// 	.fill('#3dd').stroke({
-	// 		width: 1,
-	// 		color: '#333'
-	// 	});
-
-	// var Mtgroup = draw.group();
-	// Mtgroup.add(mt1);
-	// Mtgroup.add(mt2);
-
-	// return Mtgroup;
-
+App.draw_tree = function(){
+	var _camp = $('#tree').find('path').attr('d');
+	return draw.path(_camp)
+						.fill('green').stroke({
+							width: 1,
+							color: '#333'
+						});
 }
+
+App.draw_tree_two = function(){
+	var _camp = $('#tree2').find('path').attr('d');
+	return draw.path(_camp)
+						.fill(none).stroke({
+							width: 1,
+							color: 'green'
+						});
+}
+
+App.make_forest = function(){
+	var _no_of_trees = 10
+	var tree = App.draw_tree();
+
+	var y = 500;
+	var scale = 1
+	for (var i = 0; i < 3; i++) {
+			for (var j = 0; j < _no_of_trees; j++) {
+
+				tree.clone().x(App.random(900)).y(y).scale(scale)
+			}
+			y -= 80;
+			scale -= 0.35;
+	}
+	tree.hide();
+
+	
+}
+
 
 App.init = function() {
 	var _w = App.random(100);
 	var _h = App.random(100);
 	draw = SVG('drawing').size('100%', '100%');
 
-	var sun = App.draw_sun();
-	sun.x(50).y(50);
-	//sun.animate(20000).x(800);
-
-
-	var mountain = App.draw_mountains();
+	App.make_forest();
 	//mountain.animate(20000).x(900);
 }
 
 
 jQuery(document).ready(function($) {
-	//App.init();
-	draw = SVG('drawing').size('100%', '100%');
-	var use  = draw.get('test', 'camp.svg')
+	App.init();
 });
