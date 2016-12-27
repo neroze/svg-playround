@@ -16,6 +16,8 @@
 		<div id="tree"> <?php readfile("tree.svg"); ?> </div>
 		<div id="tree2"> <?php readfile("tree2.svg"); ?> </div>
 		<div id="fishtail"> <?php readfile("fishtail.svg"); ?> </div>
+		<div id="treeker"> <?php readfile("trekker.svg"); ?> </div>
+		<div id="ghumba"> <?php readfile("ghumba.svg"); ?> </div>
 	</div>
 </body>
 </html>
